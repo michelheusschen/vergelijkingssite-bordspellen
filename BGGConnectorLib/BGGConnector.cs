@@ -29,7 +29,7 @@ namespace BGGConnectorLib
         /// </summary>
         public static HotItems GetHotItems(string type = null)
         {
-            string url = $"hot?tye={type}";
+            string url = $"hot?type={type}";
             return MakeRequest<HotItems>(url);
         }
 
