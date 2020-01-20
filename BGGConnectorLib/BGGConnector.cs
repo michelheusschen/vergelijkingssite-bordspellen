@@ -11,17 +11,23 @@ namespace BGGConnectorLib
     {
         private const string BASE_ADDRESS = "https://www.boardgamegeek.com/xmlapi2/";
 
+        public static Model MakeRequest<Model>(string url) where Model : class
+        {
+            using (WebClient client = new WebClient() { BaseAddress = BASE_ADDRESS })
+            using (Stream result = client.OpenRead(url))
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(Model));
+                return xmlSerializer.Deserialize(result) as Model;
+            }
+        }
+
         /// <summary>
         /// Retrieves the list of most active items.
         /// </summary>
         public static HotItems GetHotItems(string type = null)
         {
-            using (WebClient client = new WebClient() { BaseAddress = BASE_ADDRESS })
-            using (Stream result = client.OpenRead($"hot?tye={type}"))
-            {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(HotItems));
-                return xmlSerializer.Deserialize(result) as HotItems;
-            }
+            string url = $"hot?tye={type}";
+            return MakeRequest<HotItems>(url);
         }
 
         /// <summary>
@@ -29,12 +35,8 @@ namespace BGGConnectorLib
         /// </summary>
         public static Things GetThings(int[] ids)
         {
-            using (WebClient client = new WebClient() { BaseAddress = BASE_ADDRESS })
-            using (Stream result = client.OpenRead($"thing?tye={string.Join(",", ids)}"))
-            {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(Things));
-                return xmlSerializer.Deserialize(result) as Things;
-            }
+            string url = $"thing?tye={string.Join(",", ids)}";
+            return MakeRequest<Things>(url);
         }
     }
 }
