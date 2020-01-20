@@ -1,8 +1,9 @@
-﻿using BGGConnectorLib.XMLModels;
+﻿using System;
 using System.IO;
 using System.Net;
-using System;
 using System.Xml.Serialization;
+using System.Collections;
+using BGGConnectorLib.XMLModels;
 
 namespace BGGConnectorLib
 {
@@ -20,6 +21,19 @@ namespace BGGConnectorLib
             {
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(HotItems));
                 return xmlSerializer.Deserialize(result) as HotItems;
+            }
+        }
+
+        /// <summary>
+        /// Gets a list of things (physical, tangible products).
+        /// </summary>
+        public static Things GetThings(int[] ids)
+        {
+            using (WebClient client = new WebClient() { BaseAddress = BASE_ADDRESS })
+            using (Stream result = client.OpenRead($"thing?tye={string.Join(",", ids)}"))
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(Things));
+                return xmlSerializer.Deserialize(result) as Things;
             }
         }
     }
