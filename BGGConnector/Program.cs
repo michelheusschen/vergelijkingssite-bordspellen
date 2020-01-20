@@ -23,6 +23,7 @@ namespace BGGConnector
         private static void PrintHotItems(HotItems hotItems)
         {
             Console.WriteLine("Hot Items:");
+
             foreach (var item in hotItems.Items)
             {
                 Console.WriteLine("=========================");
