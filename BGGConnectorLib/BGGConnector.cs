@@ -2,7 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Xml.Serialization;
-using System.Collections;
+using System.Collections.Generic;
 using BGGConnectorLib.XMLModels;
 
 namespace BGGConnectorLib
@@ -34,11 +34,11 @@ namespace BGGConnectorLib
         }
 
         /// <summary>
-        /// Gets a list of things (physical, tangible products).
+        /// Retrieves things (physical, tangible products) by their id(s) with optional type filters.
         /// </summary>
-        public static Things GetThings(int[] ids)
+        public static Things GetThings(IEnumerable<int> ids, IEnumerable<string> types)
         {
-            string url = $"thing?tye={string.Join(",", ids)}";
+            string url = $"thing?id={string.Join(",", ids)}&type={string.Join(",", types)}";
             return MakeRequest<Things>(url);
         }
     }
