@@ -11,7 +11,10 @@ namespace BGGConnectorLib
     {
         private const string BASE_ADDRESS = "https://www.boardgamegeek.com/xmlapi2/";
 
-        public static Model MakeRequest<Model>(string url) where Model : class
+        /// <summary>
+        /// Generic function to make HTTP requests to the API.
+        /// </summary>
+        private static Model MakeRequest<Model>(string url) where Model : class
         {
             using (WebClient client = new WebClient() { BaseAddress = BASE_ADDRESS })
             using (Stream result = client.OpenRead(url))
