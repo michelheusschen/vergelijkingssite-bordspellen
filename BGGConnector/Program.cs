@@ -11,7 +11,7 @@ namespace BGGConnector
             {
                 var hotItems = BGGConnectorLib.BGGConnector.GetHotItems();
                 PrintHotItems(hotItems);
-                int[] ids = new int[] { 123 };
+                int[] ids = new int[] { 123,434,65,45,4,36};
                 var things = BGGConnectorLib.BGGConnector.GetThings(ids);
                 PrintThings(things);
             }
@@ -45,10 +45,30 @@ namespace BGGConnector
             foreach (var item in Things.Items)
             {
                 Console.WriteLine("=========================");
+                Console.WriteLine($"ID: {item.Id}");
+                Console.WriteLine("                         ");
+                Console.WriteLine($"Name: {item.Name.Value}");
+                Console.WriteLine("                         ");
+                Console.WriteLine($"Desciption: {item.Description}");
+                Console.WriteLine("                         ");
+                Console.WriteLine($"Thumbnail: {item.Thumbnail}");
+                Console.WriteLine("                         ");
+                Console.WriteLine($"Image: {item.Image}");
+                Console.WriteLine("                         ");
+                Console.WriteLine($"Year Published: {item.YearPublished.Value}");
+                Console.WriteLine("                         ");
+                Console.WriteLine($"Min Players: {item.MaxPlayers.Value}");
+                Console.WriteLine("                         ");
+                Console.WriteLine($"Max Players: {item.MinPlayers.Value}");
+                Console.WriteLine("                         ");
                 Console.WriteLine($"Playingtime: {item.Playingtime.Value}");
+                Console.WriteLine("                         ");
                 Console.WriteLine($"Minplaytime: {item.Minplaytime.Value}");
+                Console.WriteLine("                         ");
                 Console.WriteLine($"Maxplaytime: {item.Maxplaytime.Value}");
+                Console.WriteLine("                         ");
                 Console.WriteLine($"Minage: {item.Minage.Value}");
+                Console.WriteLine("                         ");
                 foreach (var link in item.Link)
                 {
                     Console.WriteLine($"Link: {link.Type} {link.Id} {link.Value}");

@@ -6,6 +6,31 @@ namespace BGGConnectorLib.XMLModels
     [XmlRoot("items")]
     public class Things
     {
+        [XmlRoot("name")]
+        public class Name
+        {
+            [XmlAttribute("value")]
+            public string Value { get; set; }
+        }
+
+        [XmlRoot("yearpublished")]
+        public class YearPublished
+        {
+            [XmlAttribute("value")]
+            public string Value { get; set; }
+        }
+        [XmlRoot("minplayer")]
+        public class MinPlayers
+        {
+            [XmlAttribute("value")]
+            public string Value { get; set; }
+        }
+        [XmlRoot("maxplayers")]
+        public class MaxPlayer
+        {
+            [XmlAttribute("value")]
+            public string Value { get; set; }
+        }
         public class Poll
         {
             public class Result
@@ -86,6 +111,26 @@ namespace BGGConnectorLib.XMLModels
         [XmlRoot("item")]
         public class Thing
         {
+            [XmlAttribute("id")]
+            public int Id { get; set; }
+
+            [XmlElement("thumbnail")]
+            public string Thumbnail { get; set; }
+
+            [XmlElement("image")]
+            public string Image { get; set; }
+
+            [XmlElement("name")]
+            public Name Name { get; set; }
+
+            [XmlElement("description")]
+            public string Description { get; set; }
+            [XmlElement("yearpublished")]
+            public YearPublished YearPublished { get; set; }
+            [XmlElement("minplayers")]
+            public YearPublished MinPlayers { get; set; }
+            [XmlElement("maxplayers")]
+            public YearPublished MaxPlayers { get; set; }
             [XmlElement("playingtime")]
             public Playingtime Playingtime { get; set; }
 
