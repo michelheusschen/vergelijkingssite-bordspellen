@@ -26,7 +26,7 @@ namespace BGGConnectorLib.XMLModels
             public string Value { get; set; }
         }
         [XmlRoot("maxplayers")]
-        public class MaxPlayer
+        public class MaxPlayers
         {
             [XmlAttribute("value")]
             public string Value { get; set; }
@@ -128,9 +128,9 @@ namespace BGGConnectorLib.XMLModels
             [XmlElement("yearpublished")]
             public YearPublished YearPublished { get; set; }
             [XmlElement("minplayers")]
-            public YearPublished MinPlayers { get; set; }
+            public MinPlayers MinPlayers { get; set; }
             [XmlElement("maxplayers")]
-            public YearPublished MaxPlayers { get; set; }
+            public MaxPlayers MaxPlayers { get; set; }
             [XmlElement("playingtime")]
             public Playingtime Playingtime { get; set; }
 

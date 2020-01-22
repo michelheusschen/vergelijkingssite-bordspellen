@@ -11,7 +11,7 @@ namespace BGGConnector
             {
                 var hotItems = BGGConnectorLib.BGGConnector.GetHotItems();
                 PrintHotItems(hotItems);
-                int[] ids = new int[] { 123,434,65,45,4,36};
+                int[] ids = new int[] { 123};
                 var things = BGGConnectorLib.BGGConnector.GetThings(ids);
                 PrintThings(things);
             }
