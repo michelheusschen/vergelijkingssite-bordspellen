@@ -1,5 +1,5 @@
-﻿using BGGConnectorLib.XMLModels;
-using System;
+﻿using System;
+using BGGConnectorLib.XMLModels;
 
 namespace BGGConnector
 {
@@ -11,11 +11,11 @@ namespace BGGConnector
             {
                 var hotItems = BGGConnectorLib.BGGConnector.GetHotItems();
                 PrintHotItems(hotItems);
-                int[] ids = new int[] { 123};
-                var things = BGGConnectorLib.BGGConnector.GetThings(ids);
+
+                var things = BGGConnectorLib.BGGConnector.GetThings(new int[] { 1 });
                 PrintThings(things);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -38,44 +38,41 @@ namespace BGGConnector
             }
         }
 
-        private static void PrintThings(Things Things)
+        private static void PrintThings(Things things)
         {
             Console.WriteLine("Things:");
 
-            foreach (var item in Things.Items)
+            foreach (var item in things.Items)
             {
                 Console.WriteLine("=========================");
                 Console.WriteLine($"ID: {item.Id}");
-                Console.WriteLine("                         ");
-                Console.WriteLine($"Name: {item.Name.Value}");
-                Console.WriteLine("                         ");
-                Console.WriteLine($"Desciption: {item.Description}");
-                Console.WriteLine("                         ");
+                Console.WriteLine($"Description: {item.Description}");
+                Console.WriteLine($"Type: {item.Type}");
                 Console.WriteLine($"Thumbnail: {item.Thumbnail}");
-                Console.WriteLine("                         ");
                 Console.WriteLine($"Image: {item.Image}");
-                Console.WriteLine("                         ");
-                Console.WriteLine($"Year Published: {item.YearPublished.Value}");
-                Console.WriteLine("                         ");
-                Console.WriteLine($"Min Players: {item.MaxPlayers.Value}");
-                Console.WriteLine("                         ");
-                Console.WriteLine($"Max Players: {item.MinPlayers.Value}");
-                Console.WriteLine("                         ");
-                Console.WriteLine($"Playingtime: {item.Playingtime.Value}");
-                Console.WriteLine("                         ");
-                Console.WriteLine($"Minplaytime: {item.Minplaytime.Value}");
-                Console.WriteLine("                         ");
-                Console.WriteLine($"Maxplaytime: {item.Maxplaytime.Value}");
-                Console.WriteLine("                         ");
-                Console.WriteLine($"Minage: {item.Minage.Value}");
-                Console.WriteLine("                         ");
-                foreach (var link in item.Link)
-                {
-                    Console.WriteLine($"Link: {link.Type} {link.Id} {link.Value}");
 
+                foreach (var name in item.Names)
+                {
+                    Console.WriteLine($"Name: {name.Type} {name.SortIndex} {name.Value}");
                 }
 
+                Console.WriteLine($"Year Published: {item.YearPublished.Value}");
+                Console.WriteLine($"Min Players: {item.MaxPlayers.Value}");
+                Console.WriteLine($"Max Players: {item.MinPlayers.Value}");
+                Console.WriteLine($"Playing Time: {item.PlayingTime.Value}");
+                Console.WriteLine($"Min Playtime: {item.MinPlaytime.Value}");
+                Console.WriteLine($"Max Playtime: {item.MaxPlaytime.Value}");
+                Console.WriteLine($"Min Age: {item.MinAge.Value}");
 
+                foreach (var poll in item.Polls)
+                {
+                    Console.WriteLine($"Poll: {poll.Name} {poll.Title} {poll.TotalVotes} ({poll.Results.Length} poll results)");
+                }
+
+                foreach (var link in item.Links)
+                {
+                    Console.WriteLine($"Link: {link.Type} {link.Id} {link.Value}");
+                }
             }
         }
     }

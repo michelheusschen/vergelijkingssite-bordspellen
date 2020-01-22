@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace BGGConnectorLib.XMLModels
 {
@@ -9,6 +8,12 @@ namespace BGGConnectorLib.XMLModels
         [XmlRoot("name")]
         public class Name
         {
+            [XmlAttribute("type")]
+            public string Type { get; set; }
+
+            [XmlAttribute("sortindex")]
+            public int SortIndex { get; set; }
+
             [XmlAttribute("value")]
             public string Value { get; set; }
         }
@@ -17,20 +22,23 @@ namespace BGGConnectorLib.XMLModels
         public class YearPublished
         {
             [XmlAttribute("value")]
-            public string Value { get; set; }
+            public int Value { get; set; }
         }
-        [XmlRoot("minplayer")]
+
+        [XmlRoot("minplayers")]
         public class MinPlayers
         {
             [XmlAttribute("value")]
-            public string Value { get; set; }
+            public int Value { get; set; }
         }
+
         [XmlRoot("maxplayers")]
         public class MaxPlayers
         {
             [XmlAttribute("value")]
-            public string Value { get; set; }
+            public int Value { get; set; }
         }
+
         public class Poll
         {
             public class Result
@@ -66,53 +74,54 @@ namespace BGGConnectorLib.XMLModels
         }
 
         [XmlRoot("playingtime")]
-        public class Playingtime
+        public class PlayingTime
         {
-            [XmlAttribute(AttributeName = "value")]
-            public string Value { get; set; }
+            [XmlAttribute("value")]
+            public int Value { get; set; }
         }
 
         [XmlRoot("minplaytime")]
-        public class Minplaytime
+        public class MinPlaytime
         {
-            [XmlAttribute(AttributeName = "value")]
-            public string Value { get; set; }
+            [XmlAttribute("value")]
+            public int Value { get; set; }
         }
 
         [XmlRoot("maxplaytime")]
-        public class Maxplaytime
+        public class MaxPlaytime
         {
-            [XmlAttribute(AttributeName = "value")]
-            public string Value { get; set; }
+            [XmlAttribute("value")]
+            public int Value { get; set; }
         }
 
         [XmlRoot("minage")]
-        public class Minage
+        public class MinAge
         {
-            [XmlAttribute(AttributeName = "value")]
-            public string Value { get; set; }
+            [XmlAttribute("value")]
+            public int Value { get; set; }
         }
 
         [XmlRoot("link")]
         public class Link
         {
-            [XmlAttribute(AttributeName = "type")]
+            [XmlAttribute("type")]
             public string Type { get; set; }
 
-            [XmlAttribute(AttributeName = "id")]
+            [XmlAttribute("id")]
             public string Id { get; set; }
 
-            [XmlAttribute(AttributeName = "value")]
+            [XmlAttribute("value")]
             public string Value { get; set; }
         }
-
-
 
         [XmlRoot("item")]
         public class Thing
         {
             [XmlAttribute("id")]
             public int Id { get; set; }
+
+            [XmlAttribute("type")]
+            public string Type { get; set; }
 
             [XmlElement("thumbnail")]
             public string Thumbnail { get; set; }
@@ -121,36 +130,41 @@ namespace BGGConnectorLib.XMLModels
             public string Image { get; set; }
 
             [XmlElement("name")]
-            public Name Name { get; set; }
+            public Name[] Names { get; set; }
 
             [XmlElement("description")]
             public string Description { get; set; }
+
             [XmlElement("yearpublished")]
             public YearPublished YearPublished { get; set; }
+
             [XmlElement("minplayers")]
             public MinPlayers MinPlayers { get; set; }
+
             [XmlElement("maxplayers")]
             public MaxPlayers MaxPlayers { get; set; }
+
             [XmlElement("playingtime")]
-            public Playingtime Playingtime { get; set; }
+            public PlayingTime PlayingTime { get; set; }
 
             [XmlElement("minplaytime")]
-            public Minplaytime Minplaytime { get; set; }
+            public MinPlaytime MinPlaytime { get; set; }
 
             [XmlElement("maxplaytime")]
-            public Maxplaytime Maxplaytime { get; set; }
+            public MaxPlaytime MaxPlaytime { get; set; }
 
             [XmlElement("minage")]
-            public Minage Minage { get; set; }
+            public MinAge MinAge { get; set; }
+
+            [XmlElement("poll")]
+            public Poll[] Polls { get; set; }
 
             [XmlElement("link")]
-            public Link[] Link { get; set; }
-
+            public Link[] Links { get; set; }
         }
 
         [XmlElement("item")]
         public Thing[] Items { get; set; }
-
     }
 }
 
