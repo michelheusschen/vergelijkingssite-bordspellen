@@ -36,8 +36,12 @@ namespace BGGConnectorLib
         /// <summary>
         /// Retrieves things (physical, tangible products) by their id(s) with optional type filters.
         /// </summary>
-        public static Things GetThings(IEnumerable<int> ids, IEnumerable<string> types)
+        public static Things GetThings(IEnumerable<int> ids, IEnumerable<string> types = null)
         {
+            if (types == null)
+            {
+                types = new string[] { };
+            }
             string url = $"thing?id={string.Join(",", ids)}&type={string.Join(",", types)}";
             return MakeRequest<Things>(url);
         }
