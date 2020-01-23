@@ -15,14 +15,14 @@ namespace BGGConnectorLib.XMLModels
         [XmlRoot("Name")]
         public class Name
         {
-            [XmlAttribute(AttributeName = "value")]
+            [XmlElement(ElementName = "value")]
             public string Value { get; set; }
         }
 
         [XmlRoot("YearPublished")]
         public class YearPublished
         {
-            [XmlAttribute(AttributeName = "value")]
+            [XmlElement(ElementName = "value")]
             public string Value { get; set; }
         }
         [XmlRoot("boardgame")]
@@ -31,10 +31,9 @@ namespace BGGConnectorLib.XMLModels
             [XmlAttribute("objectid")]
             public int objectid { get; set; }
             [XmlElement(ElementName = "name")]
-            public Name name { get; set; }
-            [XmlElement(ElementName = "YearPublished")]
-            public YearPublished YearPublished { get; set; }
-
+            public string name { get; set; }
+            [XmlElement(ElementName = "yearpublished")]
+            public string YearPublished { get; set; }
 
         }
         [XmlElement("boardgame")]
