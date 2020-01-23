@@ -14,6 +14,10 @@ namespace BGGConnector
 
                 var things = BGGConnectorLib.BGGConnector.GetThings(new int[] { 1 });
                 PrintThings(things);
+
+                var game = BGGConnectorLib.BGGConnector.SearchGame("war+of+man");
+                ///input search spaces need to be stripped to + or %20=(used for "name" CONTAINS)
+                PrintSearchedGames(game);
             }
             catch (Exception ex)
             {
@@ -75,5 +79,19 @@ namespace BGGConnector
                 }
             }
         }
+        public static void PrintSearchedGames(SearchItems game)
+        {
+            Console.WriteLine("=========================");
+            foreach (var boardgames in game.Boardgames)
+            {
+                Console.WriteLine("=========================");
+                Console.WriteLine($"objectid: {boardgames.objectid}");
+                Console.WriteLine($"name: {boardgames.name}");
+                Console.WriteLine($"Year Published: {boardgames.YearPublished}");
+                Console.WriteLine("=========================");
+            }
+
+        }
+        
     }
 }

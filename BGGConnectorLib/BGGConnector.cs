@@ -10,6 +10,7 @@ namespace BGGConnectorLib
     public static class BGGConnector
     {
         private const string BASE_ADDRESS = "https://www.boardgamegeek.com/xmlapi2/";
+        private const string BASE_ADDRESS1 = "https://www.boardgamegeek.com/xmlapi/";
 
         /// <summary>
         /// Generic function to make HTTP requests to the API.
@@ -23,11 +24,41 @@ namespace BGGConnectorLib
                 return xmlSerializer.Deserialize(result) as Model;
             }
         }
+        public static SearchItems SearchGame(string game)
+        {
+            if (!string.IsNullOrWhiteSpace(game))
+            {
+                using (WebClient client = new WebClient() { BaseAddress = BASE_ADDRESS1 })
+                {
+                    Stream result = null;
+                    try
+                    {
+                        string url = $"search?search={game}";
 
-        /// <summary>
-        /// Retrieves the list of most active items.
-        /// </summary>
-        public static HotItems GetHotItems(string type = null)
+                        result = client.OpenRead(url);
+
+                        XmlSerializer xmlSerializer = new XmlSerializer(typeof(SearchItems));
+                        var sgame = xmlSerializer.Deserialize(result) as SearchItems;
+
+                        return sgame;
+                    }
+                    catch (WebException ex)
+                    {
+                        throw ex;
+                    }
+                    finally
+                    {
+                        result?.Close();
+                    }
+                }
+            }
+            return null;
+        }
+
+            /// <summary>
+            /// Retrieves the list of most active items.
+            /// </summary>
+            public static HotItems GetHotItems(string type = null)
         {
             string url = $"hot?type={type}";
             return MakeRequest<HotItems>(url);
