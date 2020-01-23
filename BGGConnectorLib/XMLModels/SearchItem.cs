@@ -1,44 +1,47 @@
-﻿using System.Collections.Generic;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace BGGConnectorLib.XMLModels
 {
-    [XmlRoot("boardgames")]
+    [XmlRoot("items")]
     public class SearchItems
     {
-        public class ObjectId
+        [XmlRoot("name")]
+        public class Name
         {
-            [XmlAttribute(AttributeName = "value")]
+            [XmlAttribute("type")]
+            public string Type { get; set; }
+
+            [XmlAttribute("value")]
+            public string Value { get; set; }
+        }
+
+        [XmlRoot("yearpublished")]
+        public class YearPublished
+        {
+            [XmlAttribute("value")]
             public int Value { get; set; }
         }
 
-        [XmlRoot("Name")]
-        public class Name
-        {
-            [XmlElement(ElementName = "value")]
-            public string Value { get; set; }
-        }
-
-        [XmlRoot("YearPublished")]
-        public class YearPublished
-        {
-            [XmlElement(ElementName = "value")]
-            public string Value { get; set; }
-        }
-        [XmlRoot("boardgame")]
+        [XmlRoot("item")]
         public class SearchItem
         {
-            [XmlAttribute("objectid")]
-            public int objectid { get; set; }
-            [XmlElement(ElementName = "name")]
-            public string name { get; set; }
-            [XmlElement(ElementName = "yearpublished")]
-            public string YearPublished { get; set; }
+            [XmlAttribute("id")]
+            public int Id { get; set; }
 
+            [XmlAttribute("type")]
+            public string Type { get; set; }
+
+            [XmlElement("name")]
+            public Name Name { get; set; }
+
+            [XmlElement("yearpublished")]
+            public YearPublished YearPublished { get; set; }
         }
-        [XmlElement("boardgame")]
-        public SearchItem[] Boardgames { get; set; }
 
+        [XmlAttribute("total")]
+        public int Total { get; set; }
+
+        [XmlElement("item")]
+        public SearchItem[] Items { get; set; }
     }
-
 }
