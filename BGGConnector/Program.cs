@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BGGConnectorLib.XMLModels;
 
 namespace BGGConnector
@@ -10,13 +11,27 @@ namespace BGGConnector
             try
             {
                 var hotItems = BGGConnectorLib.BGGConnector.GetHotItems();
-                PrintHotItems(hotItems);
+                Console.WriteLine($"{hotItems.Items.Length} Hot Items");
+                //PrintHotItems(hotItems);
 
                 var things = BGGConnectorLib.BGGConnector.GetThings(new int[] { 1 });
-                PrintThings(things);
+                Console.WriteLine($"{things.Items.Length} Things");
+                //PrintThings(things);
 
                 var searchItems = BGGConnectorLib.BGGConnector.GetSearchItems("war of man");
-                PrintSearchItems(searchItems);
+                Console.WriteLine($"{searchItems.Items.Length} Search Items");
+                //PrintSearchItems(searchItems);
+
+                // Zet ids van zoekopdracht in een lijst.
+                var ids = new List<int>();
+                foreach (var item in searchItems.Items)
+                {
+                    ids.Add(item.Id);
+                }
+
+                var thingsSearch = BGGConnectorLib.BGGConnector.GetThings(ids);
+                Console.WriteLine($"{thingsSearch.Items.Length} Things from Search");
+                //PrintThings(thingsSearch);
             }
             catch (Exception ex)
             {
@@ -59,17 +74,44 @@ namespace BGGConnector
                     Console.WriteLine($"Name: {name.Type} {name.SortIndex} {name.Value}");
                 }
 
-                Console.WriteLine($"Year Published: {item.YearPublished.Value}");
-                Console.WriteLine($"Min Players: {item.MaxPlayers.Value}");
-                Console.WriteLine($"Max Players: {item.MinPlayers.Value}");
-                Console.WriteLine($"Playing Time: {item.PlayingTime.Value}");
-                Console.WriteLine($"Min Playtime: {item.MinPlaytime.Value}");
-                Console.WriteLine($"Max Playtime: {item.MaxPlaytime.Value}");
-                Console.WriteLine($"Min Age: {item.MinAge.Value}");
-
-                foreach (var poll in item.Polls)
+                // Let op: alle onderstaande attributen kunnen null zijn
+                if (item.YearPublished != null)
                 {
-                    Console.WriteLine($"Poll: {poll.Name} {poll.Title} {poll.TotalVotes} ({poll.Results.Length} poll results)");
+                    Console.WriteLine($"Year Published: {item.YearPublished.Value}");
+                }
+                if (item.MinPlayers != null)
+                {
+                    Console.WriteLine($"Min Players: {item.MinPlayers.Value}");
+                }
+                if (item.MaxPlayers != null)
+                {
+                    Console.WriteLine($"Max Players: {item.MaxPlayers.Value}");
+                }
+                if (item.PlayingTime != null)
+                {
+                    Console.WriteLine($"Playing Time: {item.PlayingTime.Value}");
+                }
+                if (item.MinPlaytime != null)
+                {
+                    Console.WriteLine($"Min Playtime: {item.MinPlaytime.Value}");
+                }
+                if (item.MaxPlaytime != null)
+                {
+                    Console.WriteLine($"Max Playtime: {item.MaxPlaytime.Value}");
+                }
+                if (item.MinAge != null)
+                {
+                    Console.WriteLine($"Min Age: {item.MinAge.Value}");
+                }
+
+                // Let op: item.Polls kan null zijn.
+                if (item.Polls != null)
+                {
+                    foreach (var poll in item.Polls)
+                    {
+                        // Let op: poll.Results kan null zijn
+                        Console.WriteLine($"Poll: {poll.Name} {poll.Title} {poll.TotalVotes} ({(poll.Results == null ? 0 : poll.Results.Length)} poll results)");
+                    }
                 }
 
                 foreach (var link in item.Links)
